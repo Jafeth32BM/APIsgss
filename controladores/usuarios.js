@@ -15,7 +15,7 @@ const usuario = async (req = request, res = response) => {
         }
         return res.json({
           ok: true,
-          result
+          usuario: result
         });
       }
     );

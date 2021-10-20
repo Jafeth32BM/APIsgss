@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-09-2021 a las 01:38:01
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.1
+-- Tiempo de generación: 01-10-2021 a las 22:17:42
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 7.4.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sgss`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentario`
+--
+
+CREATE TABLE `comentario` (
+  `noregistro` varchar(256) NOT NULL,
+  `titulo` varchar(256) DEFAULT NULL,
+  `observacion` mediumtext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `comentario`
+--
+
+INSERT INTO `comentario` (`noregistro`, `titulo`, `observacion`) VALUES
+('15EIT0010J-20-1-N-NC', '', ''),
+('15EIT0010J-20-2-N-NC', '', ''),
+('15EIT0010J-20-3-N-NC', '', ''),
+('15EIT0010J-20-4-N-NC', '', ''),
+('15EIT0010J-20-5-N-NC', '', ''),
+('98765432112', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -52,7 +76,7 @@ INSERT INTO `empresa` (`noregistro`, `empresa`, `direccion`, `municipio`, `secto
 ('15EIT0010J-20-3-N-NC', 'cafe blanco y negro', 'parque industrial de chalco, chalco centro', 'chalco', 'privado', 'lic. manuel contreras', 'supervisor3', 'lunes a viernes 9:00am a 1:00pm', 'privado', 1, 250, 'semanal'),
 ('15EIT0010J-20-4-N-NC', 'grupo bimbo sa de cv', 'barrio la conchita, chalco centro', 'chalco', 'privado', 'lic. pedro sola', 'supervisor4', 'lunes a viernes 9:00am a 1:00pm', 'bimbo', 0, NULL, 'ninguno'),
 ('15EIT0010J-20-5-N-NC', 'tecnologico de estudios superiores de chalco', 'la candelaria, tlapala', 'chalco', 'publico', 'lic. sandra vargas morales', 'supervisor5', 'lunes a viernes 9:00am a 1:00pm', 'publico', 0, NULL, 'ninguno'),
-('98765432112', '0', '0', '0', '0', '0', '0', '0', '0', 0, 0, '0');
+('98765432112', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -81,7 +105,26 @@ INSERT INTO `escolar` (`noregistro`, `matricula`, `carrera`, `siss`, `pinicio`, 
 ('15EIT0010J-20-3-N-NC', 201614003, 'ingenieria informatica', 1, '2021-03-08', '2021-09-08', 84.1, 69.9),
 ('15EIT0010J-20-4-N-NC', 201614004, 'ingenieria electromecanica', 1, '2021-03-08', '2021-09-08', 80, 70),
 ('15EIT0010J-20-5-N-NC', 201614005, 'ingenieria informatica', 0, '2021-03-08', '2021-09-08', 84.1, 69.9),
-('98765432112', 0, '0', 0, '0', '0', 0, 0);
+('98765432112', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `logueo`
+--
+
+CREATE TABLE `logueo` (
+  `noregistro` varchar(256) NOT NULL,
+  `primerlogueo` tinyint(1) DEFAULT NULL,
+  `passcambiada` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `logueo`
+--
+
+INSERT INTO `logueo` (`noregistro`, `primerlogueo`, `passcambiada`) VALUES
+('98765432112', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -91,13 +134,13 @@ INSERT INTO `escolar` (`noregistro`, `matricula`, `carrera`, `siss`, `pinicio`, 
 
 CREATE TABLE `pendiente` (
   `noregistro` varchar(256) NOT NULL,
-  `historial` tinyint(1) DEFAULT NULL,
-  `curp` tinyint(1) DEFAULT NULL,
-  `actnacim` tinyint(1) DEFAULT NULL,
-  `cargacadem` tinyint(1) DEFAULT NULL,
-  `conscredit` tinyint(1) DEFAULT NULL,
-  `solservsoci` tinyint(1) DEFAULT NULL,
-  `imss` tinyint(1) DEFAULT NULL,
+  `historial` varchar(150) DEFAULT NULL,
+  `curp` varchar(150) DEFAULT NULL,
+  `actnacim` varchar(150) DEFAULT NULL,
+  `cargacadem` varchar(150) DEFAULT NULL,
+  `conscredit` varchar(150) DEFAULT NULL,
+  `solservsoci` varchar(150) DEFAULT NULL,
+  `imss` varchar(150) DEFAULT NULL,
   `ruta` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -106,12 +149,12 @@ CREATE TABLE `pendiente` (
 --
 
 INSERT INTO `pendiente` (`noregistro`, `historial`, `curp`, `actnacim`, `cargacadem`, `conscredit`, `solservsoci`, `imss`, `ruta`) VALUES
-('15EIT0010J-20-1-N-NC', 1, 0, 1, 0, 1, 0, 1, ''),
-('15EIT0010J-20-2-N-NC', 0, 1, 0, 1, 0, 1, 0, ''),
-('15EIT0010J-20-3-N-NC', 0, 0, 0, 0, 0, 0, 0, ''),
-('15EIT0010J-20-4-N-NC', 1, 1, 1, 1, 1, 1, 1, ''),
-('15EIT0010J-20-5-N-NC', 1, 1, 1, 0, 0, 0, 0, ''),
-('98765432112', 0, 0, 0, 0, 0, 0, 0, '0');
+('15EIT0010J-20-1-N-NC', '1', '0', '1', '0', '1', '0', '1', ''),
+('15EIT0010J-20-2-N-NC', '0', '1', '0', '1', '0', '1', '0', ''),
+('15EIT0010J-20-3-N-NC', '0', '0', '0', '0', '0', '0', '0', ''),
+('15EIT0010J-20-4-N-NC', '1', '1', '1', '1', '1', '1', '1', ''),
+('15EIT0010J-20-5-N-NC', '1', '1', '1', '0', '0', '0', '0', ''),
+('98765432112', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -130,7 +173,6 @@ CREATE TABLE `usuario` (
   `sexo` varchar(25) DEFAULT NULL,
   `correo` varchar(150) DEFAULT NULL,
   `telefono` varchar(15) DEFAULT NULL,
-  `comentarios` text DEFAULT NULL,
   `tipo` varchar(150) DEFAULT NULL,
   `fecharegistro` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -139,20 +181,26 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`noregistro`, `curp`, `contrasena`, `nuevacontra`, `apaterno`, `amaterno`, `nombres`, `sexo`, `correo`, `telefono`, `comentarios`, `tipo`, `fecharegistro`) VALUES
-('15EIT0010J-20-1-N-NC', 'asde124506bsnrhsn8', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'martinez', 'flores', 'jose juan', 'masculino', 'jose_mf@tesch.edu.mx', '5512345678', '', 'estudiante', '2021-03-19'),
-('15EIT0010J-20-2-N-NC', 'asqwdc215487dfsr7', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'magon', 'rodriguez', 'maria pancha', 'femenino', 'maria_mr@tesch.edu.mx', '5598765432', '', 'estudiante', '2021-03-19'),
-('15EIT0010J-20-3-N-NC', 'okes895615xadsfrs9', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'lopez', 'anguna', 'jose luis', 'masculino', 'jose_la@tesch.edu.mx', '5614598741', '', 'estudiante', '2021-03-19'),
-('15EIT0010J-20-4-N-NC', 'uher658457dwzxase0', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'soriana', 'tunes', 'guadalupe victoria', 'femenino', 'lupe_st@tesch.edu.mx', '5678542162', '', 'estudiante', '2021-03-19'),
-('15EIT0010J-20-5-N-NC', 'wesa571402swascrs1', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'de la cruz', 'antunes', 'hector', 'masculino', 'hector_dlca@tesch.edu.mx', '5521306584', '', 'estudiante', '2021-03-19'),
-('15EIT0010J-XX-A1-N-NC', 'vams840515mmctdss5', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'vargas', 'morales', 'sandra', 'femenino', 'sandra_vm@tesch.edu.mx', '5500000000', '', 'admin', '2021-03-19'),
-('15EIT0010J-XX-A2-N-NC', 'digj950318hmcstdf7', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'diaz', 'guevara', 'jonas abimael', 'masculino', 'jonas_dg@tesch.edu.mx', '5500000000', '', 'admin', '2021-03-19'),
-('15EIT0010J-XX-A3-N-NC', 'bamj960725hdfdrs08', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'badillo', 'martinez', 'josephan jafeth', 'masculino', 'jafeth_bm@tesch.edu.mx', '5500000000', '', 'admin', '2021-03-19'),
-('98765432112', 'qwertyuiop', '$2a$08$ARQ/dqhLil.tfTN7MkIZ2ed6zyUe6bX1//pGv2Onjhzraw4NI5zWy', '', 'juarez', 'penales', 'alejandro', 'masculino', 'alejandro_jp@tesch.edu.mx', '0', '', 'estudiante', '2021-09-21 15:55:39');
+INSERT INTO `usuario` (`noregistro`, `curp`, `contrasena`, `nuevacontra`, `apaterno`, `amaterno`, `nombres`, `sexo`, `correo`, `telefono`, `tipo`, `fecharegistro`) VALUES
+('15EIT0010J-20-1-N-NC', 'asde124506bsnrhsn8', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'martinez', 'flores', 'jose juan', 'masculino', 'jose_mf@tesch.edu.mx', '5512345678', 'estudiante', '2021-03-19'),
+('15EIT0010J-20-2-N-NC', 'asqwdc215487dfsr7', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'magon', 'rodriguez', 'maria pancha', 'femenino', 'maria_mr@tesch.edu.mx', '5598765432', 'estudiante', '2021-03-19'),
+('15EIT0010J-20-3-N-NC', 'okes895615xadsfrs9', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'lopez', 'anguna', 'jose luis', 'masculino', 'jose_la@tesch.edu.mx', '5614598741', 'estudiante', '2021-03-19'),
+('15EIT0010J-20-4-N-NC', 'uher658457dwzxase0', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'soriana', 'tunes', 'guadalupe victoria', 'femenino', 'lupe_st@tesch.edu.mx', '5678542162', 'estudiante', '2021-03-19'),
+('15EIT0010J-20-5-N-NC', 'wesa571402swascrs1', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'de la cruz', 'antunes', 'hector', 'masculino', 'hector_dlca@tesch.edu.mx', '5521306584', 'estudiante', '2021-03-19'),
+('15EIT0010J-XX-A1-N-NC', 'vams840515mmctdss5', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'vargas', 'morales', 'sandra', 'femenino', 'sandra_vm@tesch.edu.mx', '5500000000', 'admin', '2021-03-19'),
+('15EIT0010J-XX-A2-N-NC', 'digj950318hmcstdf7', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'diaz', 'guevara', 'jonas abimael', 'masculino', 'jonas_dg@tesch.edu.mx', '5500000000', 'admin', '2021-03-19'),
+('15EIT0010J-XX-A3-N-NC', 'bamj960725hdfdrs08', '$2a$08$ya1gEzN.gNka2VBVFhMnqeQyf099OatjMWQYiL9ZxutQl5NZCFOvS', '', 'badillo', 'martinez', 'josephan jafeth', 'masculino', 'jafeth_bm@tesch.edu.mx', '5500000000', 'admin', '2021-03-19'),
+('98765432112', 'qwertyuiop', '$2a$08$ICHPCZXSVIfJZ.earETEe.5K1SJb/Je64aTsLWB63lF.SnFitnIL2', '', 'juarez', 'penales', 'alejandro', 'masculino', 'alejandro_jp@tesch.edu.mx', '0', 'estudiante', '2021-10-01 15:15:12');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD PRIMARY KEY (`noregistro`);
 
 --
 -- Indices de la tabla `empresa`
@@ -164,6 +212,12 @@ ALTER TABLE `empresa`
 -- Indices de la tabla `escolar`
 --
 ALTER TABLE `escolar`
+  ADD PRIMARY KEY (`noregistro`);
+
+--
+-- Indices de la tabla `logueo`
+--
+ALTER TABLE `logueo`
   ADD PRIMARY KEY (`noregistro`);
 
 --
@@ -183,6 +237,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- Filtros para la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`noregistro`) REFERENCES `usuario` (`noregistro`);
+
+--
 -- Filtros para la tabla `empresa`
 --
 ALTER TABLE `empresa`
@@ -193,6 +253,12 @@ ALTER TABLE `empresa`
 --
 ALTER TABLE `escolar`
   ADD CONSTRAINT `escolar_ibfk_1` FOREIGN KEY (`noregistro`) REFERENCES `usuario` (`noregistro`);
+
+--
+-- Filtros para la tabla `logueo`
+--
+ALTER TABLE `logueo`
+  ADD CONSTRAINT `logueo_ibfk_1` FOREIGN KEY (`noregistro`) REFERENCES `usuario` (`noregistro`);
 
 --
 -- Filtros para la tabla `pendiente`

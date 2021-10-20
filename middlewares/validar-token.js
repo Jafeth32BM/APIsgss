@@ -24,4 +24,4 @@ const validarJWT = (req = request, res = response, next) => {
   next();
 };
 
-module.exports = { validarJWT };
+module.exports = validarJWT;

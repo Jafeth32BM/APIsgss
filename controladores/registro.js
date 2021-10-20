@@ -1,5 +1,4 @@
-
-const {React, useState, useEffect} = require('react');
+const { React, useState, useEffect } = require("react");
 const { response, request } = require("express");
 const dbConn = require("../database/config");
 const bcrypt = require("bcryptjs");
@@ -14,6 +13,7 @@ const regisAlum = async (req = request, res = response) => {
   const {
     noregistro,
     curp,
+    matricula,
     contrasena,
     apaterno,
     amaterno,
@@ -26,10 +26,10 @@ const regisAlum = async (req = request, res = response) => {
   // SE CONSULTA SI YA ESTA REGISTRADO
   dbConn.query(
     "select * from usuario where curp = ?",
-     [curp] ,
+    [curp],
     async (err, resultRegistro) => {
-      // console.log(resultRegistro)
-      if (resultRegistro == 0) {
+      // REGISTRAR ALUMNO
+      if (resultRegistro == 0 && tipo == "estudiante") {
         dbConn.query(
           "INSERT INTO usuario SET ?",
           {
@@ -67,62 +67,132 @@ const regisAlum = async (req = request, res = response) => {
             });
           }
         );
-        dbConn.query("INSERT INTO empresa SET ?",{
-          noregistro, 
-          empresa: nada,
-          direccion: nada,
-          municipio: nada, 
-          sector: nada, 
-          asesorext: nada, 
-          puesto: nada, 
-          horario: nada,
-          nomprograma: nada,
-          apoyoecon: nada,
-          monto: nada,
-          estimulo: nada},
-        async (errEmpresa, resultEmpresa)=>{
-          if(errEmpresa){
-            return res.status(400).json({
-              ok: false,
-              msg: "No se pudo registrar en empresa",
+        dbConn.query(
+          "INSERT INTO empresa SET ?",
+          {
+            noregistro,
+          },
+          async (errEmpresa, resultEmpresa) => {
+            if (errEmpresa) {
+              return res.status(400).json({
+                ok: false,
+                msg: "No se pudo registrar en empresa",
+              });
+            }
+          }
+        );
+        dbConn.query(
+          "INSERT INTO escolar SET ?",
+          {
+            noregistro,
+            matricula,
+          },
+          async (errEscolar, resultEscolar) => {
+            if (errEscolar) {
+              return res.status(400).json({
+                ok: false,
+                msg: "No se pudo registrar escolar",
+              });
+            }
+          }
+        );
+        dbConn.query(
+          "INSERT INTO pendiente SET ?",
+          {
+            noregistro,
+          },
+          async (errPendiente, resultPendiente) => {
+            if (errPendiente) {
+              return res.status(400).json({
+                ok: false,
+                msg: "No se pudo registrar pendiente",
+              });
+            }
+          }
+        );
+        dbConn.query(
+          "INSERT INTO logueo SET ?",
+          {
+            noregistro,
+          },
+          async (errLogueo, resultlogueo) => {
+            if (errLogueo) {
+              return res.status(400).json({
+                ok: false,
+                msg: "No se pudo registrar logueo",
+              });
+            }
+          }
+        );
+        dbConn.query(
+          "INSERT INTO comentario SET ?",
+          {
+            noregistro,
+          },
+          async (errComentario, resultComentario) => {
+            if (errComentario) {
+              return res.status(400).json({
+                ok: false,
+                msg: "No se pudo registrar en Comentario",
+              });
+            }
+          }
+        );
+        // REGISTRAR ADMINISTRADOR
+      } else if (resultRegistro == 0 && tipo == "admin") {
+        dbConn.query(
+          "INSERT INTO usuario set ?",
+          {
+            noregistro,
+            curp,
+            contrasena: passHash,
+            apaterno,
+            amaterno,
+            nombres,
+            sexo,
+            correo,
+            telefono: nada,
+            tipo,
+            fecharegistro: hoy,
+          },
+          async (errAdmin, resultAdmin) => {
+            if (errAdmin) {
+              return res.status(400).json({
+                ok: false,
+                mgs: "No se pudo registar al nuevo Administrador",
+              });
+            }
+            const token = await genJWT(req.body.noregistro, req.body.curp);
+            return res.status(201).json({
+              ok: true,
+              msg: "Administrador registrado",
+              noregistro,
+              curp,
+              contrasena,
+              apaterno,
+              amaterno,
+              nombres,
+              sexo,
+              correo,
+              tipo,
+              token,
             });
           }
-        })
-        dbConn.query("INSERT INTO escolar SET ?",{
-          noregistro, 
-          matricula: nada,
-          carrera: nada,
-          siss: nada,
-          pinicio: nada, 
-          pfin: nada, 
-          promedio: nada,
-          porcentaje: nada},
-        async (errEscolar, resultEscolar)=>{
-          if(errEscolar){
-            return res.status(400).json({
-              ok: false,
-              msg: "No se pudo registrar escolar",
-            });
+        );
+        dbConn.query(
+          "INSERT INTO logueo SET ?",
+          {
+            noregistro,
+          },
+          async (errLogueo, resultlogueo) => {
+            if (errLogueo) {
+              return res.status(400).json({
+                ok: false,
+                msg: "No se pudo registrar logueo",
+              });
+            }
           }
-        })
-        dbConn.query("INSERT INTO pendiente SET ?",{
-          noregistro, 
-          historial: nada,
-          curp: nada,
-          actnacim: nada,
-          cargacadem: nada,
-          conscredit: nada,
-          solservsoci: nada,
-          imss: nada,
-          ruta: nada},
-        async (errPendiente, resultPendiente)=>{
-          if(errPendiente){
-            return res.status(400).json({
-              ok: false,
-              msg: "No se pudo registrar pendiente",
-            });
-          }
-        })
+        );
       } else {
         // SI ESTA REGISTRADO SE SALE
         return res.status(400).json({
@@ -134,4 +204,4 @@ const regisAlum = async (req = request, res = response) => {
   );
 };
 
-module.exports ={registro: regisAlum}
+module.exports = { registro: regisAlum };

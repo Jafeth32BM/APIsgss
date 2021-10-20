@@ -3,7 +3,7 @@ const dbConn = require("../database/config");
 
 const empresa = async (req = request, res = response) => {
     dbConn.query(
-      "SELECT usuario.noregistro, usuario.apaterno, usuario.amaterno, usuario.nombres, escolar.carrera, empresa.empresa, empresa.direccion, empresa.municipio, empresa.sector, empresa.asesorext, empresa.puesto, empresa.horario, empresa.nomprograma, empresa.apoyoecon, empresa.monto FROM usuario LEFT JOIN empresa ON usuario.noregistro = empresa.noregistro LEFT JOIN escolar ON usuario.noregistro = escolar.noregistro ORDER BY usuario.noregistro",
+      "SELECT usuario.noregistro, usuario.apaterno, usuario.amaterno, usuario.nombres, escolar.carrera, empresa.empresa, empresa.direccion, empresa.municipio, empresa.sector, empresa.asesorext, empresa.puesto, empresa.horario, empresa.nomprograma, empresa.apoyoecon, empresa.monto FROM usuario INNER JOIN empresa ON usuario.noregistro = empresa.noregistro INNER JOIN escolar ON usuario.noregistro = escolar.noregistro ORDER BY usuario.noregistro",
       // "select * from usuario where 1=1",
       // `select * from empresa`,
     //   `select * from usuario where correo = '${correo}'`,

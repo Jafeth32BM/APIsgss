@@ -7,7 +7,8 @@ const genJWT = (noregistro, curp) => {
       payload,
       process.env.SCRT_JWT_SEED,
       {
-        expiresIn: "24h",
+        // expiresIn: "30min",
+        expiresIn: "1d",
       },
       (err, token) => {
         if (err) {
